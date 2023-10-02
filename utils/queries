@@ -10,4 +10,24 @@ const db = mysql.createConnection(
     console.log(`Connected to the employee database.`)
   );
 
+function viewDepartments (init){
+
+}
+function viewRoles (init){
   
+}
+function viewEmployees (init){
+  
+}
+function newDepartment (init){
+  
+}
+function newRole(init){
+  
+}
+function addEmployee(init){
+  
+}
+function updateRole(init){
+  
+}
