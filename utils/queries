@@ -12,7 +12,7 @@ const db = mysql.createConnection(
 
 function viewDepartments (init){
   const query = 'SELECT id AS Department_ID, name AS Department_Name FROM department';
-  pool.query(query, (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       console.error('Error:', err);
     } else {
@@ -31,7 +31,7 @@ function viewRoles (init){
     FROM role
     INNER JOIN department ON role.department_id = department.id
   `;
-  pool.query(query, (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       console.error('Error:', err);
     } else {
@@ -55,7 +55,7 @@ function viewEmployees (init){
     LEFT JOIN department ON role.department_id = department.id
     LEFT JOIN employee manager ON employee.manager_id = manager.id
   `;
-  pool.query(query, (err, results) => {
+  db.query(query, (err, results) => {
     if (err) {
       console.error('Error:', err);
     } else {
@@ -65,10 +65,65 @@ function viewEmployees (init){
   });
 }
 function newDepartment (init){
-  
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'departmentName',
+        message: 'Enter new department name:',
+      },
+    ])
+    .then((answers) => {
+      const query = 'INSERT INTO department (name) VALUES (?)';
+      db.query(query, [answers.departmentName], (err, results) => {
+        if (err) {
+          console.error('Error:', err);
+        } else {
+          console.log(`Department '${answers.departmentName}' added successfully!`);
+          init();
+        }
+      });
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 function newRole(init){
-  
+  const queryDepartments = 'SELECT id, name FROM department';
+  db.query(queryDepartments, (err, departments) => {
+    if (err) throw err;
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'roleTitle',
+          message: 'Enter new role:'
+        },
+        {
+          type: 'input',
+          name: 'roleSalary',
+          message: 'Enter new role salary:',
+          validate: (input) => !isNaN(input),
+        },
+        {
+          type: 'list',
+          name: 'departmentId',
+          message: 'Select the department:',
+          choices: departments.map((dept) => ({ name: dept.name, value: dept.id })),
+        },
+      ])
+      .then((answers) => {
+        const query = 'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)';
+        db.query(query, [answers.roleTitle, parseFloat(answers.roleSalary), answers.departmentId], (err, res) => {
+          if (err) throw err;
+          console.log(`Role '${answers.roleTitle}' added successfully!`);
+          startApp();
+        });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
 }
 function addEmployee(init){
   
