@@ -10,8 +10,8 @@ VALUES ('Senior Associate of Sales', 77000,1), ('Junior Sales Associate', 25000,
        ('Chief of Human Resources',1000000,5),
        ('Customer Fulfillment Representative', 32544, 6), ('Senior Q/A Technician', 91000, 6), ('Q/A Manager', 135000, 6);
       
-INSERT INTO EMPLOYEE(firstName, lastName, role_id, supervisor_id)
-VALUES('Tona','Turner',12, 1),('Sebastian','Glue',1,1),('Lou','Terry',2,2),('Fredrick','Spinner',2,2),
+INSERT INTO employees (first_name, last_name, role_id, supervisor_id)
+VALUES ('Tona','Turner',12, 1),('Sebastian','Glue',1,1),('Lou','Terry',2,2),('Fredrick','Spinner',2,2),
       ('Tim','World',3,1),('Terrance','Flow',4,5),('Dave','Miller',8,1),('Riley','Roger',7,7),
       ('Miles','Davis',6,8),('Mathew','Pearl',5,9),('Glen','Fletcher',5,9),('John','Green',5,9),
       ('Olive','Rodriguez',9,1),('Anabelle','Hall',10,13),('Daisy','Duke',10,13),('Ulric','Baker',11,14),

@@ -9,23 +9,21 @@ create table department (
   name VARCHAR(30)
 );
 
---create table for roles
 create table role (
-  id int not null auto_increment,
+  id INT NOT NULL auto_increment,
   title VARCHAR(30) NOT NULL,
   salary FLOAT NOT NULL,
   department_id INT,
   PRIMARY KEY(id),
-  FOREIGN KEY (department_id) REFERENCES department(id)
+  FOREIGN KEY (department_id) REFERENCES department(id) ON DELETE SET NULL
 );
 
--- create table for employees
-create table employee (
+create table employees (
   id INT auto_increment PRIMARY KEY,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
   role_id INT,
   supervisor_id INT,
   FOREIGN KEY (role_id) REFERENCES role(id),
-  FOREIGN KEY (supervisor_id) REFERENCES employee(id)
+  FOREIGN KEY (supervisor_id) REFERENCES employees(id)
 );
