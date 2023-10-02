@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+// const db = require('./db/schema.sql');
 const { viewDepartments, viewRoles, viewEmployees, newDepartment, newRole, addEmployee, updateRole } = require('./utils/queries');
 
 function init() {
@@ -18,40 +19,40 @@ function init() {
           'Quit'
         ]
       })
-    //   .then((answer) => {
-    //     switch (answer.action) {
-    //     case 'Create a new Department':
-    //         newDepartment(init);
-    //         break;
-    //     case 'Create a new Role':
-    //         newRole(init);
-    //         break;
-    //     case 'Add a new Employee':
-    //         addEmployee(init);
-    //         break;          
-    //     case 'Update an existing Employee Role':
-    //         updateRole(init);
-    //         break;
-    //     case 'View Departments':
-    //         viewDepartments(init);
-    //         break;
-    //     case 'View Roles':
-    //         viewRoles(init);
-    //         break;
-    //     case 'View Employees':
-    //         viewEmployees(init);     
-    //         break;     
-    //     case 'Quit':
-    //         pool.end();
-    //         console.log('good-bye');
-    //         break;
-    //     default:
-    //         console.log('Invalid choice. Please select again.');
-    //         init();
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error:', error);
-    //   });
+      .then((answer) => {
+        switch (answer.action) {
+        case 'Create a new Department':
+            newDepartment(init);
+            break;
+        case 'Create a new Role':
+            newRole(init);
+            break;
+        case 'Add a new Employee':
+            addEmployee(init);
+            break;          
+        case 'Update an existing Employee Role':
+            updateRole(init);
+            break;
+        case 'View Departments':
+            viewDepartments(init);
+            break;
+        case 'View Roles':
+            viewRoles(init);
+            break;
+        case 'View Employees':
+            viewEmployees(init);     
+            break;     
+        case 'Quit':
+            pool.end();
+            console.log('good-bye');
+            break;
+        default:
+            console.log('Invalid choice. Please select again.');
+            init();
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }
 init();
